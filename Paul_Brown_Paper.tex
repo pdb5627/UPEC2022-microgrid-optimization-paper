@@ -206,6 +206,14 @@
 
 \graphicspath{{./figs/}}
 
+% Paper-specific packages that I have added:
+\usepackage{siunitx}  % For units with \SI
+\usepackage{threeparttable}  % For tablenotes
+\usepackage{placeins}  % For \FloatBarrier
+\usepackage{xfrac}  % For \sfrac
+\DeclareMathOperator{\logicand}{and}
+\DeclareMathOperator{\logicor}{or}
+
 
 %\bibliographystyle{chicago}   % For drafts only, to make it easier to see which references have been used.
 \bibliographystyle{IEEEtranN} % IEEEtranN is the natbib compatible bst file
@@ -268,21 +276,15 @@
 
 \input{01_introduction}
 
-% The page breaks are helpful while drafting to keep the sections separate.
-%\clearpage
+\input{02_demo_system}
 
+\input{03_problem_formulation}
 
-\input{02_section2}
+\input{04_data_values}
 
-%\clearpage
+\input{05_implementation}
 
-\input{03_section3}
-
-%\clearpage
-
-\input{04_section4}
-
-%\clearpage
+\input{06_results}
 
 \input{99_conclusion}
 

@@ -1,0 +1,6 @@
+\section{Implementation}
+
+The problem was modeled in the Python programming language using the Pyomo library\cite{Pyomo} and solved using the COIN-OR CBC\cite{CBC} open-source linear mixed-integer program (MIP) solver. In order to use a MIP solver, auxiliary binary variables were introduced to handle non-linear functions such as $\max$, $\min$, absolute value, $\ge$, $\le$, and logic functions $\logicand$ and $\logicor$.
+
+% Problem size from logs saved with run 20220317_1333.
+The problem, solved for a time period of \SI{72}{h} with an interval $\Delta t$ of \SI{1}{h}, contained a total of 566 continuous and 1008 binary variables. CBC converges near to a solution in less than 30 seconds.
