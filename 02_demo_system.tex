@@ -6,11 +6,7 @@
 
 This paper presents an original mathematical formulation of the operational optimization problem for model-predictive control of an agricultural microgrid. The basic problem is to formulate an optimization problem such that the microgrid can be controlled using a model-predictive controller in the EMS. The optimization problem is specifically formulated for a demonstration system to be installed at the Güneşköy farm\cite{Guneskoy}. A block diagram of the demonstration system is shown in \autoref{fig:demo-system}.
 
-The existing pump will continue to be fed from the grid. The site electrical load will be fed from a hybrid inverter that will have battery, PV, and grid connections available. A new pump load will be fed from an inverter drive connected to the PV DC bus. Although the problem is formulated as if a grid connection is available, the same formulation can be used for off-grid applications. In the off-grid case, $P_{grid}$ could be supplied from a diesel generator or could represent prospective load that is not served and have a relatively high penalty cost.
-
-\textbf{Stochastic model-predictive control.} The goal is to formulate this problem as stochastic model-predictive control (SMPC) in order to accommodate the stochastic nature of load and available photovoltaic energy. Unlike in standard model-predictive control (MPC), where the output of the optimization problem is the control input (feed-forward), in SMPC, the output of the optimization problem is the optimal control law to be applied in the future time periods. Thus, the system is able to respond to stochastic events dynamically without having to re-run the MPC problem to obtain new control outputs.
-
-Although SMPC is the goal, it it not immediately clear what form the control law should take and how it should be formulated. As a first step, the decision variables are calculated separately for each scenario. Then in a second step, a control law can be designed to fit the optimal decision variables across the scenarios.
+The existing pump will continue to be fed from the grid. The site electrical load will be fed from a hybrid inverter\cite{INVT_manual} that will have battery, PV, and grid connections available. A new pump load will be fed from an inverter drive\cite{Growatt_manual} connected to the PV DC bus.
 
 \begin{figure}
 	\centering

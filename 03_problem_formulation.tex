@@ -6,7 +6,7 @@
 
 \subsection{Problem variables}
 
-
+The problem variables are shown in \autoref{table:variables}. The optimization determines the best times to run Pump 1, when and how much to run Pump 2, and when to utilize water for irrigation.
 
 \begin{table}[htb]
 	\begin{threeparttable}[b]
@@ -121,7 +121,7 @@
 
 \subsection{Objective function}
 
-The objective function includes several components and is shown in \autoref{eqn:objective-function}. The actual cost component is cost of grid power. The cost of battery usage component represents the portion of the replacement cost of the battery system incurred due to the loss of life caused by battery cycling. The other penalty factors encourage the full supply of desired water on each day and discourage unnecessary switching of the BSS mode and Pump 1 respectively.
+The objective function includes several components and is shown in \autoref{eqn:objective-function}. The actual cost component is cost of grid power. The cost of battery usage component represents the portion of the replacement cost of the battery system incurred due to the loss of life caused by battery cycling\cite{Yilmaz2020}. The other penalty factors encourage the full supply of desired water on each day and discourage unnecessary switching of the BSS mode and Pump 1 respectively.
 %
 \begin{equation}
 \label{eqn:objective-function}
@@ -139,6 +139,8 @@ The objective function includes several components and is shown in \autoref{eqn:
 
 
 \subsection{Constraints}
+
+The constraints represent the mathematical representation of the operation and allowable states of the microgrid system. The constraints related to each component of the microgrid are presented in the following subsections.
 
 \subsubsection{Power Balance}
 
