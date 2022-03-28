@@ -12,3 +12,5 @@ In this formulation, a single value represents all the parameters at each time s
 One possible extension of this model would be to make it stochastic so that multiple possible future scenarios are represented.
 Unlike in standard model-predictive control (MPC), where the output of the optimization problem is the control input (feed-forward), in stochastic model predictive control (SMPC), the output of the optimization problem is the optimal control law to be applied in the future time periods\cite{mesbah2016}. Thus, the system is able to respond to stochastic events dynamically without having to re-run the MPC problem to obtain new control outputs.
 A microgrid control system incorporating SMPC has been presented in \cite{cominesi2015}.
+
+Additional future work includes integration of this formulation with PV and load forecasts to complete the MPC or SMPC controller as well as integration with the microgrid real-time controller.

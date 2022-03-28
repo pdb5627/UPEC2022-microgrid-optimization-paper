@@ -1,36 +1,35 @@
 \section{Problem formulation}
 \label{sec:problem-formulation}
 
-\autoref{table:variables} shows problem variables that are to be determined by the optimization process.
-\autoref{table:calculated} shows quantities that are calculated based on the problem equations.
+The problem variables, objective function, and constraints are described in the following subsections.
 
 \subsection{Problem variables}
 
-The problem variables are shown in \autoref{table:variables}. The optimization determines the best times to run Pump 1, when and how much to run Pump 2, and when to utilize water for irrigation.
+The problem variables are shown in \cref{table:variables}. The optimization determines the best times to run Pump 1, when and how much to run Pump 2, and when to utilize water for irrigation.
 
-\begin{table}[htb]
+\begin{table}[t]
 	\begin{threeparttable}[b]
 		\caption{Problem variables}
 		\label{table:variables}
-		\begin{tabular}{cp{0.7\columnwidth}c}
+		\begin{tabular}{cp{0.65\columnwidth}c}
 			\toprule 
 			Symbol & Description & Units \\
 			\midrule
-			$s_{pump1,t}$ & Pump 1 on-off selection variable\tnote{2} & - \\
+			$s_{pump1,t}$ & Pump 1 on-off selection variable\tnote{3} & - \\
 			$P_{pump2,t}$ & Power used for pumping water to Reservoir 2 & \si{W} \\
-			$Q_{use1,t}$ & Flow of water used (irrigation or other use) from Reservoir 1 & \si{m^3/h} \\
-			$Q_{use2,t}$ & Flow of water used (irrigation or other use) from Reservoir 2 & \si{m^3/h} \\
+			$Q_{use,r,t}$ & Flow of water used (irrigation or other use) from Reservoir $r$ & \si{m^3/h} \\
 			\bottomrule
 		\end{tabular}
 		\begin{tablenotes}
 			\footnotesize
-			\item [1] Variables subscripted with $t$ have a value for each time period
-			\item [2] Binary variable. 1: Running. 0: Off.
+			\item [1] Variables subscripted with $t$ have a value for each time period.
+			\item [2] Variables subscripted with $r$ have a value for each reservoir.
+			\item [3] Binary variable. 1: Running. 0: Off.
 		\end{tablenotes}
 	\end{threeparttable}
 \end{table}
 
-\begin{table}[htb]
+\begin{table}[t]
 	\begin{threeparttable}[b]
 		\caption{Calculated quantities}
 		\label{table:calculated}
@@ -39,29 +38,28 @@ The problem variables are shown in \autoref{table:variables}. The optimization d
 			Symbol & Description & Units \\
 			\midrule
 			$P_{pump1,t}$ & Power used by Pump 1 for pumping water to Reservoir 1 & \si{W} \\
-			$Q_{pump1,t}$ & Volume of water pumped by Pump 1 & \si{m^3} \\
+			$Q_{pump,r,t}$ & Volume of water pumped by Pump $r$ & \si{m^3} \\
 			%$s_{pump2,on,t}$ & Pump on-off selection variable\tnote{2} & - \\
 			%$P_{pump2,t}$ & Power used by Pump 2 for pumping water to Reservoir 2 & \si{W} \\
-			$Q_{pump2,t}$ & Volume of water pumped by Pump 2 & \si{m^3} \\
-			$s_{BSS,t}$ & Operating mode of BSS\tnote{3} & - \\
+			$s_{BSS,t}$ & Operating mode of BSS\tnote{4} & - \\
 			$P_{BSS,ch,t}$ & Power used to charge the BSS & \si{W} \\
 			$P_{BSS,disch,t}$ & Power drawn from discharging the BSS & \si{W} \\
-			$s_{inv,t}$ & Inverter mode\tnote{4} & - \\
+			$s_{inv,t}$ & Inverter mode\tnote{5} & - \\
 			$P_{PV,t}$ & Power drawn from the PV array & \si{W} \\
 			%$P_{avail,t}$ & Available PV power minus load on microgrid & \si{W} \\
 			$P_{PV-inverter,t}$ & Power flow from the PV bus to the inverter & \si{W} \\
-			$P_{grid,t}$ & Power drawn from the electrical grid or load not served & \si{W} \\
-			$P_{grid-inverter,t}$ & Power drawn from the grid to feed the hybrid inverter & \si{W} \\
+			$P_{grid,t}$ & Power from the electrical grid & \si{W} \\
+			$P_{grid-inverter,t}$ & Power from the grid to the hybrid inverter & \si{W} \\
 			$E_{BSS,t}$ & Energy stored in the BSS at the end of the period & \si{W h} \\
-			$V_{w1,t}$ & Volume of water stored in the Reservoir 1 at the end of the period & \si{m^3} \\
-			$V_{w2,t}$ & Volume of water stored in the Reservoir 2 at the end of the period & \si{m^3} \\
+			$V_{w,r,t}$ & Volume of water stored at the end of the period & \si{m^3} \\
 			$V_{use,d}$ & Effectively used volume of water (irrigation or other use) on day $d$ & \si{m^3} \\
 			\bottomrule
 		\end{tabular}
 		\begin{tablenotes}
 			\footnotesize
 			\item [1] Variables subscripted with $t$ have a value for each time period
-			\item [2] Binary variable. 1: Running. 0: Off.
+			\item [2] Variables subscripted with $r$ have a value for each reservoir
+			%\item [3] Binary variable. 1: Running. 0: Off.
 			\item [3] Binary variable. 1: Charging. 0: Discharging.
 			\item [4] Binary variable. 1: Inverter fed from utility source. 0: Inverter fed from BSS/PV source.
 		\end{tablenotes}
@@ -69,7 +67,7 @@ The problem variables are shown in \autoref{table:variables}. The optimization d
 \end{table}
 
 
-\begin{table}[htb]
+\begin{table}[t]
 	\begin{threeparttable}[b]
 		\caption{Problem parameters / data}
 		\label{table:parameters}
@@ -87,22 +85,18 @@ The problem variables are shown in \autoref{table:variables}. The optimization d
 			$Q_{w2}\left(P_{pump2}\right)$ & Function relating pumped water quantity to electrical power for Pump 2 & \si{m^3 / h} \\
 			$P_{BSS,ch,max}$ & Bulk charging power for the BSS & \si{W} \\
 			$P_{BSS,disch,max}$ & Maximum power for discharging the BSS & \si{W} \\
-			$K_{BSS}$ & BSS absorption mode charge rate constant (0 - 1) & - \\
+			$K_{BSS}$ & BSS absorption mode charge rate constant & - \\
 			$E_{BSS,0}$ & Initial value of energy stored in the BSS & \si{W h} \\
 			$s_{inv,0}$ & Initial state of inverter & - \\
 			$E_{BSS,max}$ & Maximum energy that can be stored in the BSS & \si{W h} \\
 			$E_{BSS,lower}$ & Inverter threshold to switch from BSS/PV source to utility source & \si{W} \\
 			$E_{BSS,upper}$ & Inverter threshold to switch from utility source to BSS/PV source & \si{W} \\
-			$V_{w1,0}$ & Initial value of water stored in Reservoir 1 & \si{m^3} \\
-			$V_{w1,min}$ & Minimum volume of water that can be stored in Reservoir 1 & \si{m^3} \\
-			$V_{w1,max}$ & Maximum volume of water that can be stored in Reservoir 1 & \si{m^3} \\
-			$V_{w2,0}$ & Initial value of water stored in Reservoir 2 & \si{m^3} \\
-			$V_{w2,min}$ & Minimum volume of water that can be stored in Reservoir 2 & \si{m^3} \\
-			$V_{w2,max}$ & Maximum volume of water that can be stored in Reservoir 2 & \si{m^3} \\
+			$V_{w,r,0}$ & Initial value of water stored & \si{m^3} \\
+			$V_{w,r,min}$ & Minimum volume of water & \si{m^3} \\
+			$V_{w,r,max}$ & Maximum volume of water & \si{m^3} \\
 			$V_{use,desired,d}$ & Desired volume of effectively used water on day $d$& \si{m^3} \\
 			$D_d$ & Set of time periods $t$ belonging to day $d$. & - \\
-			$Q_{use1,max}$ & Maximum rate of water use from Reservoir 1 & \si{m^3 / h} \\
-			$Q_{use2,max}$ & Maximum rate of water use from Reservoir 2 & \si{m^3 / h} \\
+			$Q_{use,r,max}$ & Maximum rate of water use & \si{m^3 / h} \\
 			$C_{grid,t}$ & Cost of power from the grid & \si{\$ / W h} \\
 			$C_{BSS}$ & Cost of storing power in the BSS & \si{\$ / W h} \\
 			$C_{BSS,switching}$ & Penalty for changing BSS charging/discharging mode & \si{\$/ea} \\
@@ -114,26 +108,28 @@ The problem variables are shown in \autoref{table:variables}. The optimization d
 		\end{tabular}
 		\begin{tablenotes}
 			\footnotesize
-			\item [1] Variables subscripted with $t$ have a value for each time period
+			\item [1] Parameters subscripted with $t$ have a value for each time period
+			\item [2] Parameters subscripted with $r$ have a value for each reservoir
 		\end{tablenotes}
 	\end{threeparttable}
 \end{table}
 
 \subsection{Objective function}
 
-The objective function includes several components and is shown in \autoref{eqn:objective-function}. The actual cost component is cost of grid power. The cost of battery usage component represents the portion of the replacement cost of the battery system incurred due to the loss of life caused by battery cycling\cite{Yilmaz2020}. The other penalty factors encourage the full supply of desired water on each day and discourage unnecessary switching of the BSS mode and Pump 1 respectively.
+The objective function includes several components and is shown in \cref{eqn:objective-function}. The actual cost component is cost of grid power. The cost of battery usage component represents the portion of the replacement cost of the battery system incurred due to the loss of life caused by battery cycling\cite{Yilmaz2020}. The other penalty factors encourage the full supply of desired water on each day and discourage unnecessary switching of the BSS mode and Pump 1 respectively.
 %
 \begin{equation}
 \label{eqn:objective-function}
 \begin{split}
 \min &\underbrace{\sum_t C_{grid,t} \ P_{grid,t} \ \Delta t}_{\textrm{Cost of grid power}}
-+ \underbrace{\sum_t C_{BSS} \left( P_{BSS,ch,t} + P_{BSS,disch,t} \right) \Delta t}_{\textrm{Cost of battery usage}}
 \\
-+ &\underbrace{C_{w,short} \sum_d \max\left(\left(V_{use,desired,d} - V_{use,d}\right), 0\right)}_{\textrm{Penalty for inadequate water}}
+{+} \: &\underbrace{\sum_t C_{BSS} \left( P_{BSS,ch,t} + P_{BSS,disch,t} \right) \Delta t}_{\textrm{Cost of battery usage}}
 \\
-+ &\underbrace{C_{BSS,switching} \sum_t \left| s_{BSS,t} - s_{BSS,t-1} \right|}_{\textrm{BSS mode-switching penalty}}
+{+} \: &\underbrace{C_{w,short} \sum_d \max\left(\left(V_{use,desired,d} - V_{use,d}\right), 0\right)}_{\textrm{Penalty for inadequate water}}
 \\
-+ &\underbrace{C_{Pump1,switching} \sum_t \left| s_{pump1,t} - s_{pump1,t-1} \right|}_{\textrm{Pump 1 switching penalty}}
+{+} \: &\underbrace{C_{BSS,switching} \sum_t \left| s_{BSS,t} - s_{BSS,t-1} \right|}_{\textrm{BSS mode-switching penalty}}
+\\
+{+} \: &\underbrace{C_{Pump1,switching} \sum_t \left| s_{pump1,t} - s_{pump1,t-1} \right|}_{\textrm{Pump 1 switching penalty}}
 \end{split}
 \end{equation}
 
@@ -144,7 +140,7 @@ The constraints represent the mathematical representation of the operation and a
 
 \subsubsection{Power Balance}
 
-There is a power balance constraint equation for each of the four buses shown in \autoref{fig:power-flows}. \autoref{eqn:power-balance-PV} enforces balance on the PV bus, \autoref{eqn:power-balance-inverter} enforces balance in the hybrid inverter PV/BSS side, \autoref{eqn:power-balance-inverter-grid} enforces balance in the hybrid inverter grid side, and \autoref{eqn:power-balance-grid} enforces balance on the grid-side bus.
+There is a power balance constraint equation for each of the four buses shown in \cref{fig:power-flows}. \Cref{eqn:power-balance-PV} enforces balance on the PV bus, \cref{eqn:power-balance-inverter} enforces balance in the hybrid inverter PV/BSS side, \cref{eqn:power-balance-inverter-grid} enforces balance in the hybrid inverter grid side, and \cref{eqn:power-balance-grid} enforces balance on the grid-side bus.
 %
 \begin{gather}
 \label{eqn:power-balance-PV}
@@ -152,7 +148,7 @@ P_{PV,t} - P_{pump2,t} - P_{PV-inverter,t} = 0 \\
 \label{eqn:power-balance-inverter}
 \begin{split}
 P_{PV-inverter,t} + P_{BSS,disch,t}& - P_{BSS,ch,t} \\
- &- \left( 1 - s_{inv,t}\right) \ P_{load,t} = 0 
+ &{-} \: \left( 1 - s_{inv,t}\right) \ P_{load,t} = 0 
 \end{split}
 \\
 \label{eqn:power-balance-inverter-grid}
@@ -199,7 +195,7 @@ P_{pump2,t} = 0 \ \lor \ P_{pump2,min} \le P_{pump2,t} \le P_{pump2,max} \\
 Q_{pump2,t} = Q_{w2}\left( P_{pump2,t} \right)
 \end{gather}
 
-\autoref{eqn:pump-flow-relation} is a placeholder for the currently unknown relationship between pump flow and power. For real-time control, the EMS controller could infer this relationship by observing the operation of the pump. Until then, a simple linear efficiency coefficient $\eta_{pump2}$ is used to characterize the power-flow relationship of Pump 2.
+\Cref{eqn:pump-flow-relation} is a placeholder for the currently unknown relationship between pump flow and power. For real-time control, the EMS controller could infer this relationship by observing the operation of the pump. Until then, a simple linear efficiency coefficient $\eta_{pump2}$ is used to characterize the power-flow relationship of Pump 2.
 %
 \begin{equation}
 \label{eqn:pump-flow-relation}
@@ -221,11 +217,11 @@ It is planned for the BSS to consist of lead-acid batteries. The hybrid inverter
 
 For the purposes of a mathematical model of the hybrid inverter's battery charging system for this optimization problem, only the bulk charging and absorption charging modes are represented. The other charging modes are neglected since most of the energy transfer to the BSS is completed these modes.
 
-\autoref{eqn:sBSS} forces the charger state to charge if power is available.
-\autoref{eqn:BSS-mode-charging} enforces the limit for absorption charging mode of the hybrid inverter,
+\Cref{eqn:sBSS} forces the charger state to charge if power is available.
+\cref{eqn:BSS-mode-charging} enforces the limit for absorption charging mode of the hybrid inverter,
 limits charging power to available power from the PV after meeting pumping and load power,
 and only allows charging when $s_{BSS,t}$ is in charging mode.
-\autoref{eqn:BSS-mode-discharging} only allows discharging when $s_{BSS,t}$ is in discharging mode.
+\Cref{eqn:BSS-mode-discharging} only allows discharging when $s_{BSS,t}$ is in discharging mode.
 %
 \begin{gather}
 \label{eqn:sBSS}
@@ -237,7 +233,7 @@ P_{BSS,ch,t} = \min\Big(
 & \underbrace{K_{BSS} \ \frac{E_{BSS,max} - E_{BSS,t-1}}{\eta_{BSS} \ \Delta t}}_
 {\textrm{Absorption mode charging limit}},
 \\
-& \underbrace{P_{PV,avail,t} - P_{pump2,t} - (1 - s_{inv,t}) P_{load,t}}_
+& \mkern-22mu \underbrace{P_{PV,avail,t} - P_{pump2,t} - (1 - s_{inv,t}) P_{load,t}}_
 {\textrm{Unused available PV power}},
 \\
 & \underbrace{s_{BSS,t} \ P_{BSS,ch,max}}_  
@@ -248,14 +244,14 @@ P_{BSS,ch,t} = \min\Big(
 0 \le P_{BSS,disch,t} \le \left(1 - s_{BSS,t}\right) P_{BSS,disch,max}
 \end{gather}
 
-The constant $K_{BSS}$ takes a value between 0 and 1 and determines this switchover point from bulk charging mode to absorption charging and the rate of decrease in the charging power in absorption charging mode. A $K_{BSS}$ value of 1 indicates that the charger remains in bulk charging mode until the BSS is fully charged. The value of $K_{BSS}$ can be related to the time constant of the exponential decay of charging power in absorption mode, $\tau_{BSS}$ as shown in \autoref{eqn:calculate-K-BSS}. This relationship can be used to calculate $K_{BSS}$ or to convert a known $K_{BSS}$ from one modeling time interval $\Delta t$ to another.
+The constant $K_{BSS}$ takes a value between 0 and 1 and determines this switchover point from bulk charging mode to absorption charging and the rate of decrease in the charging power in absorption charging mode. A $K_{BSS}$ value of 1 indicates that the charger remains in bulk charging mode until the BSS is fully charged. The value of $K_{BSS}$ can be related to the time constant of the exponential decay of charging power in absorption mode, $\tau_{BSS}$ as shown in \cref{eqn:calculate-K-BSS}. This relationship can be used to calculate $K_{BSS}$ or to convert a known $K_{BSS}$ from one modeling time interval $\Delta t$ to another.
 %
 \begin{equation}
 \label{eqn:calculate-K-BSS}
 K_{BSS} = 1 - e^{\sfrac{-\Delta t}{\tau_{BSS}}}
 \end{equation}
 
-According to the the hybrid inverter user manual, when in ``SBU priority'' mode, the hybrid inverter switches from PV/battery source to utility source when the battery goes below a minimum voltage level and switches back to the battery when the battery rises above a minimum voltage level. \autoref{eqn:inverter-mode} represents this logic to determine the connection of the inverter in time period $t$ based on the connection during the previous period and the BSS energy level at the end of the previous period. In this way of modeling, the mode is switched only at discrete time intervals, so the model will show the battery BSS charge level will going a little above and below the set thresholds rather than switching mid-period as the actual hybrid inverter will do.
+According to the the hybrid inverter user manual, when in ``SBU priority'' mode, the hybrid inverter switches from PV/battery source to utility source when the battery goes below a minimum voltage level and switches back to the battery when the battery rises above a minimum voltage level. \Cref{eqn:inverter-mode} represents this logic to determine the connection of the inverter in time period $t$ based on the connection during the previous period and the BSS energy level at the end of the previous period. In this way of modeling, the mode is switched only at discrete time intervals, so the model will show the battery BSS charge level will going a little above and below the set thresholds rather than switching mid-period as the actual hybrid inverter will do.
 %
 \begin{equation}
 \label{eqn:inverter-mode}
@@ -267,7 +263,7 @@ s_{inv,t} = \left(s_{inv,t-1} \logicand \left(E_{BSS,t-1} \le E_{BSS,upper} \rig
 \end{split}
 \end{equation}
 
-\autoref{eqn:BSS-balance} couples the battery system energy balance from one period to the next. It includes a factor for conversion losses on energy input and energy output. An alternative formulation would be to make the efficiency factor be ``round trip'' and only include it on one of charging or discharging power rather than both.
+\Cref{eqn:BSS-balance} couples the battery system energy balance from one period to the next. It includes a factor for conversion losses on energy input and energy output. An alternative formulation would be to make the efficiency factor be ``round trip'' and only include it on one of charging or discharging power rather than both.
 %
 \begin{equation}
 \label{eqn:BSS-balance}
@@ -276,32 +272,28 @@ E_{BSS,t} = E_{BSS,t-1} + P_{BSS,ch,t} \ \eta_{BSS} \ \Delta t - \frac{P_{BSS,di
 
 \subsubsection{Water Flow}
 
-\autoref{eqn:water-balance-1} and \autoref{eqn:water-balance-2} couple the water level in Reservoir 1 and Reservoir 2 from one period to the next. It does not include water losses at this time, but water losses could be incorporated into this equation in the future.
+\Cref{eqn:water-balance} couple the water level in the reservoirs from one period to the next.
 %
 \begin{gather}
-\label{eqn:water-balance-1}
-V_{w1,t} = V_{w1,t-1} + Q_{pump1,t} \ \Delta t - Q_{use1,t} \Delta t \\
-\label{eqn:water-balance-2}
-V_{w2,t} = V_{w2,t-1} + Q_{pump2,t} \ \Delta t - Q_{use2,t} \Delta t
+\label{eqn:water-balance}
+V_{w,r,t} = V_{w,r,t-1} + Q_{pump,r,t} \ \Delta t - Q_{use,r,t} \Delta t \\
 \end{gather}
 
-\autoref{eqn:total-water} sums the effective irrigation water across periods in each day, taking into consideration the varying efficiency of irrigation in different periods.
-It is assumed that water use between the two reservoirs is interchangeable.
+\Cref{eqn:total-water} sums the effective irrigation water across periods in each day, taking into consideration the varying efficiency of irrigation in different periods.
+It is assumed that water use between the reservoirs is interchangeable.
 %
 \begin{equation}
 \label{eqn:total-water}
-V_{use,d} = \sum_{t \in D_d}  \eta_{w,t} \left( Q_{use1,t} +  Q_{use2,t} \right) \Delta t
+V_{use,d} = \sum_{t \in D_d}  \sum_{r} \eta_{w,t} Q_{use,r,t} \Delta t
 \end{equation}
 
-Equations \ref{eqn:var-limit-1st} through \ref{eqn:var-limit-last} are the limits on feasible values of the water flow and reservoir level values.
+Equations \ref{eqn:var-limit-1} and \ref{eqn:var-limit-2} are the limits on feasible values of the water flow and reservoir level values.
 %
 \begin{gather}
-\label{eqn:var-limit-1st}
-0 \le Q_{use1,t} \le Q_{use1,max} \\
-0 \le Q_{use2,t} \le Q_{use2,max} \\
-V_{w1,min} \le V_{w1,t} \le V_{w1,max} \\
-\label{eqn:var-limit-last}
-V_{w2,min} \le V_{w2,t} \le V_{w2,max}
+\label{eqn:var-limit-1}
+0 \le Q_{use,r,t} \le Q_{use,r,max} \\
+\label{eqn:var-limit-2}
+V_{w,r,min} \le V_{w,r,t} \le V_{w,r,max} \\
 \end{gather}
 
 

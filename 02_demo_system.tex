@@ -1,25 +1,22 @@
-% Make sure any figures start AFTER the introduction and don't float above it.
-\FloatBarrier
-
 \section{Demonstration System}
 \label{sec:demo-system}
 
-This paper presents an original mathematical formulation of the operational optimization problem for model-predictive control of an agricultural microgrid. The basic problem is to formulate an optimization problem such that the microgrid can be controlled using a model-predictive controller in the EMS. The optimization problem is specifically formulated for a demonstration system to be installed at the Güneşköy farm\cite{Guneskoy}. A block diagram of the demonstration system is shown in \autoref{fig:demo-system}.
+The optimization problem is specifically formulated for a demonstration system to be installed at the Güneşköy farm\cite{Guneskoy}. A block diagram of the demonstration system is shown in \cref{fig:demo-system}.
 
 The existing pump will continue to be fed from the grid. The site electrical load will be fed from a hybrid inverter\cite{INVT_manual} that will have battery, PV, and grid connections available. A new pump load will be fed from an inverter drive\cite{Growatt_manual} connected to the PV DC bus.
 
-\begin{figure}
+\begin{figure}[t]
 	\centering
-	\fontsize{8pt}{9.5pt}\selectfont
-	\def\svgwidth{\columnwidth}
+	\fontsize{6.7pt}{9pt}\selectfont
+	\def\svgwidth{0.8\columnwidth}
 	\input{figs/demo_system.pdf_tex}
 	\caption{Güneşköy Demonstration System}
 	\label{fig:demo-system}
 \end{figure}
 
-The power flows within the demonstration system are shown in \autoref{fig:power-flows}.
+The power flows within the demonstration system are shown in \cref{fig:power-flows}.
 
-\begin{figure}
+\begin{figure}[t]
 	\centering
 	\input{figs/power_flows.pdf_tex}
 	\caption{Microgrid power flows}

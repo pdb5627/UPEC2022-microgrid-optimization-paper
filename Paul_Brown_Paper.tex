@@ -10,6 +10,9 @@
 % To set up:
 % aptitude install texlive-publishers texlive-lang-european texlive-latex-extra
 
+% PBROWN: Use this to suppress the warning when including multiple matplotlib PDF plots on the same page
+\pdfsuppresswarningpagegroup=1
+
 %cmap has to be loaded before any font package (such as newtxmath)
 \RequirePackage{cmap}
 
@@ -32,7 +35,7 @@
 
 %Set English as language and allow to write hyphenated"=words
 % For Turkish, on Ubuntu aptitude install texlive-lang-european
-\usepackage[english]{babel}
+%\usepackage[english]{babel}
 % If using Turkish, also set option shorthands=off
 %Hint by http://tex.stackexchange.com/a/321066/9075 -> enable "= as dashes
 %\addto\extrasenglish{\languageshorthands{ngerman}\useshorthands{"}}
@@ -156,10 +159,17 @@
 % Enable correct jumping to figures when referencing
 \usepackage[all]{hypcap}
 
+%\renewcommand{\figurename}{Fig.}
+
 %enable \cref{...} and \Cref{...} instead of \ref: Type of reference included in the link
 \usepackage[capitalise,nameinlink]{cleveref}
 %\crefname{lstlisting}{\lstlistingname}{\lstlistingname}
 %\Crefname{lstlisting}{Listing}{Listings}
+% The following are to comply with the IEEE style guide.
+\crefformat{equation}{#2(#1)#3}
+\Crefformat{equation}{#2Equation #1#3}
+\crefname{figure}{Fig.}{Figs.}
+%\Crefname{figure}{Fig.}{Figs.}
 
 %Following definitions are outside of IfPackageLoaded; inside, they are not visible
 %
@@ -211,6 +221,7 @@
 \usepackage{threeparttable}  % For tablenotes
 \usepackage{placeins}  % For \FloatBarrier
 \usepackage{xfrac}  % For \sfrac
+%\usepackage{orcidlink}  % For orcid link
 \DeclareMathOperator{\logicand}{and}
 \DeclareMathOperator{\logicor}{or}
 
@@ -263,6 +274,10 @@
   \input{abstract}
 \end{abstract}
 
+\begin{IEEEkeywords}
+	Microgrid, optimization, photovoltaic systems, energy storage, irrigation
+\end{IEEEkeywords}
+
 % For peer review papers, you can put extra information on the cover
 % page as needed:
 % \ifCLASSOPTIONpeerreview
@@ -273,8 +288,10 @@
 % creates the second title. It will be ignored for other modes.
 \IEEEpeerreviewmaketitle
 
-
 \input{01_introduction}
+
+% Make sure any figures start AFTER the introduction and don't float above it.
+\FloatBarrier
 
 \input{02_demo_system}
 
@@ -316,6 +333,14 @@
 \bibliography{biblio}
 
 %\ \\ % empty line after bibliogpraphy and that statement
-%All links were followed on April 18, 2018.
+
+\begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{Photo_Paul}}]{Paul Brown}
+	(S’03–M’06)
+	received the B.S. in Electrical Engineering from Iowa State University, Ames, in 2004
+	and the M.S. in Electrical Engineering from the Faculty of Engineering, University of Porto, Porto, Portugal, in 2006.
+	He is currently working toward a Ph.D. in Electrical and Electronics Engineering at Middle East Technical University in Ankara, Turkey, under the supervision of Murat Göl.
+	He worked as a consulting electrical engineer for Peak Power Engineering in Golden, Colorado from 2006-2013.
+	He worked as a transmission system protection engineer for Nebraska Public Power District in Columbus, Nebraska from 2013-2017.
+\end{IEEEbiography}
 
 \end{document}
