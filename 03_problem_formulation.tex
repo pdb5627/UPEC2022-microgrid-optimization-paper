@@ -1,7 +1,7 @@
 \section{Problem formulation}
 \label{sec:problem-formulation}
 
-The problem variables, objective function, and constraints are described in the following subsections.
+The problem variables, objective function, and constraints are described in the following subsections. Refer to \cref{table:variables,table:calculated,table:parameters} for definitions of the symbols used.
 
 \subsection{Problem variables}
 
@@ -116,7 +116,7 @@ The problem variables are shown in \cref{table:variables}. The optimization dete
 
 \subsection{Objective function}
 
-The objective function includes several components and is shown in \cref{eqn:objective-function}. The actual cost component is cost of grid power. The cost of battery usage component represents the portion of the replacement cost of the battery system incurred due to the loss of life caused by battery cycling\cite{Yilmaz2020}. The other penalty factors encourage the full supply of desired water on each day and discourage unnecessary switching of the BSS mode and Pump 1 respectively.
+The objective function includes several components and is shown in \cref{eqn:objective-function}. The actual cost component is the cost of grid power. The cost of battery usage component represents the portion of the replacement cost of the battery system incurred due to the loss of life caused by battery cycling\cite{Yilmaz2020}. The other penalty factors encourage the full supply of desired water on each day and discourage unnecessary switching of the BSS mode and Pump 1 respectively.
 %
 \begin{equation}
 \label{eqn:objective-function}
@@ -136,7 +136,7 @@ The objective function includes several components and is shown in \cref{eqn:obj
 
 \subsection{Constraints}
 
-The constraints represent the mathematical representation of the operation and allowable states of the microgrid system. The constraints related to each component of the microgrid are presented in the following subsections.
+The constraints represent mathematically the operation and allowable states of the microgrid system. The constraints related to each component of the microgrid are as follows:
 
 \subsubsection{Power Balance}
 
@@ -157,7 +157,7 @@ P_{grid-inverter,t} = s_{inv,t} \ P_{load,t} \\
 P_{grid,t} - P_{grid-inverter,t} - P_{pump1,t} = 0
 \end{gather}
 
-The direction of power flow from the PV bus to the inverter and from the grid to the inverter must be constrained to be positive.
+The direction of power flow from the PV bus to the inverter and from the grid to the inverter are constrained to be positive as shown in \cref{eqn:pv-inverter-positive} and \cref{eqn:grid-inverter-positive}.
 %
 \begin{gather}
 \label{eqn:pv-inverter-positive}
@@ -186,7 +186,7 @@ P_{pump1,t} = s_{pump1,t} \ P_{pump1,max} \\
 Q_{pump1,t} = s_{pump1,t} \ Q_{w1}
 \end{gather}
 
-It is assumed that Pump 2 may be operated at a specified range-limited setpoint chosen by the controller. The pumping power $P_{pump2,t}$ is a semi-continuous variable, being continuous between a minimum and a maximum or else 0.
+It is assumed that Pump 2 may be operated at a specified range-limited power setpoint chosen by the controller. The pumping power $P_{pump2,t}$ is a semi-continuous variable, being continuous between a minimum and a maximum or else 0.
 %
 \begin{gather}
 \label{eqn:pump2-power}
@@ -206,19 +206,19 @@ Q_{pump2,t} = Q_{w2}\left( P_{pump2,t} \right)
 
 The hybrid inverter selected for the demonstration system at Güneşköy has limited capability to receive external control. It is assumed that the hybrid inverter will be configured with a priority order for supplying load such that the load will be supplied from PV if available, supplemented by power from the BSS. If PV is not sufficient and the BSS charge level is too low, then the utility grid source will be used. It is assumed that the hybrid inverter will charge the BSS only from PV and not from the utility grid source.
 
-It is planned for the BSS to consist of lead-acid batteries. The hybrid inverter is responsible for charging the lead-acid battery bank. The inverter uses a four-stage charging cycle:
+It is planned for the BSS to consist of lead-acid batteries. The hybrid inverter is responsible for charging the lead-acid battery bank. The inverter uses a four-stage charging cycle\cite{Growatt_manual}:
 
 \begin{enumerate}
 	\item \textbf{Bulk charging.} Charges at a settable maximum charging current. The power to the battery is nearly constant and is approximated in this formulation as a constant power $P_{BSS,ch,max}$.
-	\item \textbf{Absorption charging.} Once the voltage reaches set maximum charging voltage, the voltage is held for a duration of 10 times the time spent in bulk charging mode. The power to the battery declines exponentially with time as the BSS voltage approaches the charging voltage and the SOC approaches 100\%.
-	\item \textbf{Float charging.} Once the absorption charge timer completes, the charger switches to float charging mode in which a fixed voltage is held and minimal charging current is output except to compensate the small battery internal discharge or small load discharging of the battery.
+	\item \textbf{Absorption charging.} Once the voltage reaches the set maximum charging voltage, the voltage is held for a duration of 10 times the time spent in bulk charging mode. The power to the battery declines exponentially with time as the BSS voltage approaches the charging voltage and the SOC approaches 100\%.
+	\item \textbf{Float charging.} Once the absorption charge timer completes, the charger switches to float charging mode in which a fixed voltage is held and minimal charging current is output except to compensate the small battery internal discharge or load discharging of the battery.
 	\item \textbf{Equalization charging.} Equalization charging is only applicable to flooded lead acid batteries and not to sealed lead acid batteries. In this mode, the battery is temporarily overcharged in order to reduce sulfation on the battery plates.
 \end{enumerate}
 
 For the purposes of a mathematical model of the hybrid inverter's battery charging system for this optimization problem, only the bulk charging and absorption charging modes are represented. The other charging modes are neglected since most of the energy transfer to the BSS is completed these modes.
 
-\Cref{eqn:sBSS} forces the charger state to charge if power is available.
-\cref{eqn:BSS-mode-charging} enforces the limit for absorption charging mode of the hybrid inverter,
+\Cref{eqn:sBSS} forces the charger state to charging mode if power is available.
+\Cref{eqn:BSS-mode-charging} enforces the limit for absorption charging mode of the hybrid inverter,
 limits charging power to available power from the PV after meeting pumping and load power,
 and only allows charging when $s_{BSS,t}$ is in charging mode.
 \Cref{eqn:BSS-mode-discharging} only allows discharging when $s_{BSS,t}$ is in discharging mode.
@@ -244,14 +244,15 @@ P_{BSS,ch,t} = \min\Big(
 0 \le P_{BSS,disch,t} \le \left(1 - s_{BSS,t}\right) P_{BSS,disch,max}
 \end{gather}
 
-The constant $K_{BSS}$ takes a value between 0 and 1 and determines this switchover point from bulk charging mode to absorption charging and the rate of decrease in the charging power in absorption charging mode. A $K_{BSS}$ value of 1 indicates that the charger remains in bulk charging mode until the BSS is fully charged. The value of $K_{BSS}$ can be related to the time constant of the exponential decay of charging power in absorption mode, $\tau_{BSS}$ as shown in \cref{eqn:calculate-K-BSS}. This relationship can be used to calculate $K_{BSS}$ or to convert a known $K_{BSS}$ from one modeling time interval $\Delta t$ to another.
+The constant $K_{BSS}$ takes a value between 0 and 1 and determines this switchover point from bulk charging mode to absorption charging and the rate of decrease in the charging power in absorption charging mode. A $K_{BSS}$ value of 1 indicates that the charger remains in bulk charging mode until the BSS is fully charged. The value of $K_{BSS}$ can be related to the time constant of the exponential decay of charging power in absorption mode, $\tau_{BSS}$, as shown in \cref{eqn:calculate-K-BSS}. This relationship can be used to calculate $K_{BSS}$ or to convert a known $K_{BSS}$ from one modeling time interval $\Delta t$ to another.
 %
 \begin{equation}
 \label{eqn:calculate-K-BSS}
 K_{BSS} = 1 - e^{\sfrac{-\Delta t}{\tau_{BSS}}}
 \end{equation}
 
-According to the the hybrid inverter user manual, when in ``SBU priority'' mode, the hybrid inverter switches from PV/battery source to utility source when the battery goes below a minimum voltage level and switches back to the battery when the battery rises above a minimum voltage level. \Cref{eqn:inverter-mode} represents this logic to determine the connection of the inverter in time period $t$ based on the connection during the previous period and the BSS energy level at the end of the previous period. In this way of modeling, the mode is switched only at discrete time intervals, so the model will show the battery BSS charge level will going a little above and below the set thresholds rather than switching mid-period as the actual hybrid inverter will do.
+According to the the hybrid inverter user manual\cite{Growatt_manual}, when in ``SBU priority'' mode, the hybrid inverter switches from PV/battery source to utility source when the battery goes below a minimum voltage level and switches back to the battery when the battery rises above a minimum voltage level. \Cref{eqn:inverter-mode} represents this logic to determine the connection of the inverter in time period $t$ based on the connection during the previous period and the BSS energy level at the end of the previous period. 
+Modeled this way, the mode is switched only at discrete time intervals, so the model will show the battery BSS charge level will going a little above and below the set thresholds rather than switching mid-period as the actual hybrid inverter will do.
 %
 \begin{equation}
 \label{eqn:inverter-mode}
@@ -274,10 +275,10 @@ E_{BSS,t} = E_{BSS,t-1} + P_{BSS,ch,t} \ \eta_{BSS} \ \Delta t - \frac{P_{BSS,di
 
 \Cref{eqn:water-balance} couple the water level in the reservoirs from one period to the next.
 %
-\begin{gather}
+\begin{equation}
 \label{eqn:water-balance}
-V_{w,r,t} = V_{w,r,t-1} + Q_{pump,r,t} \ \Delta t - Q_{use,r,t} \Delta t \\
-\end{gather}
+V_{w,r,t} = V_{w,r,t-1} + Q_{pump,r,t} \ \Delta t - Q_{use,r,t} \Delta t
+\end{equation}
 
 \Cref{eqn:total-water} sums the effective irrigation water across periods in each day, taking into consideration the varying efficiency of irrigation in different periods.
 It is assumed that water use between the reservoirs is interchangeable.
@@ -293,7 +294,7 @@ Equations \ref{eqn:var-limit-1} and \ref{eqn:var-limit-2} are the limits on feas
 \label{eqn:var-limit-1}
 0 \le Q_{use,r,t} \le Q_{use,r,max} \\
 \label{eqn:var-limit-2}
-V_{w,r,min} \le V_{w,r,t} \le V_{w,r,max} \\
+V_{w,r,min} \le V_{w,r,t} \le V_{w,r,max}
 \end{gather}
 
 
