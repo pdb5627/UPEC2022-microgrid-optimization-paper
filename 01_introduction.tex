@@ -15,10 +15,17 @@ While microgrids can facilitate rural electrification by allowing connection of 
 development of microgrids requires new techniques for planning, control, and operation\cite{Bhuiyan2014,Reca-Cardena2018}.
 
 Much of the literature regarding optimization of microgrids has focused on design optimization and optimal sizing of system components\cite{Bhuiyan2014,Dawoud2018}.
-This paper focuses on the operational planning of an agricultural microgrid with a grid connection, a DER (PV), irrigation pumping load, and water and electrical energy storage.
-This paper presents an original mathematical formulation of the operational optimization problem suitable for model-predictive control (MPC) of an agricultural microgrid.
 Ref. \cite{Ghasemi2018} investigates the optimal operation of a microgrid including pumped hydro energy storage by formulating a non-linear optimization problem and using the two-point estimate method (TPEM) to account for uncertainty. 
 In \cite{Shoeb2018}, the authors evaluate three rule-based control strategies using the HOMER Pro microgrid analysis tool.
 Ref. \cite{Wang2014} proposes a MPC for battery energy storage system (BESS) associated with a grid-connected PV system. The proposed control scheme determines the BESS power schedule, maximizing profit from real-time energy price arbitrage by time-shifting while accounting for BESS costs associated with cycling and smoothing the plant and BESS output.
 
+This paper focuses on the operational planning of an agricultural microgrid with a grid connection, a DER (PV), irrigation pumping load, and water and electrical energy storage.
+This paper presents an original mathematical formulation of the operational optimization problem suitable for model-predictive control (MPC) of an agricultural microgrid.
 The novelty of this work is the inclusion of PV and water needs as well as the modeling of the hybrid inverter source switching and BSS charging modes.
+
+In this paper, \cref{sec:demo-system} briefly describes the demonstration system that is modeled.
+Then in \cref{sec:problem-formulation}, the mathematical formulation of the problem is presented.
+Data used for the demonstration system is shown in \cref{sec:data-values}.
+Implementation details are provided in \cref{sec:implementation}.
+In \cref{sec:results}, results of the optimization for the demonstration system data is shown.
+\cref{sec:conclusion} describes some conclusions and directions for future work.
