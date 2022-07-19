@@ -1,0 +1,76 @@
+\numberwithin{equation}{section}
+\appendix[Linearization Formulation]
+\label{sec:linearization}
+\renewcommand{\theequation}{A.\arabic{equation}}
+
+Some non-linear functions were linearized using auxiliary variables to create linearized versions suitable for application in a MILP solver. Details of the formulations of these are provided in this appendix.
+The linearized formulations generally follow the ideas from \cite{YALPMIP_logic} but are not identical in every case.
+
+\subsection{max}
+
+The $\max$ function was implemented using Big M and an additional binary variable $u_i$ for each of the input quantities $a_i$ to the function. The binary variable $u_i$ takes a value of \num{1} when $a_i$ is the maximum input value. A new variable $z$ is introduced as the output of the $\max$ function.
+
+\begin{gather}
+a_i \le z \le a_i + M (1 - u_i) \quad \forall \ i
+\\
+\sum_i a_i = 1
+\end{gather}
+
+\subsection{min}
+
+The $\min$ function was implemented by multiplying the inputs and output of the $\max$ function by \num{-1}.
+
+\begin{equation}
+\min\left(a_1, a_2, ...\right) = -\max\left(-a_1, -a_2, ...\right)
+\end{equation}
+
+\subsection{Absolute value}
+
+A linearized absolute value function was implemented by using Big M and introducing a new binary variable $u$ that takes a value of \num{1} when the input quantity $a$ is greater than zero. A new variable $z$ is introduced as the output of the absolute value function.
+
+\begin{gather}
+-M (1 - u) + a \le z \le M (1 - u) + a
+\\
+-M u - a \le z \le M u - a
+\\
+z \ge 0
+\end{gather}
+
+\subsection{Less than or equal to zero}
+
+A linearized less-than-or-equal-to-zero function was implemented by using Big M and introducing a new binary output variable $z$. The input quantity is $a$.
+
+\begin{equation}
+-M z \le a \le M (1 - z)
+\end{equation}
+
+\subsection{Greater than or equal to zero}
+
+A linearized greater-than-or-equal-to-zero logic function was implemented by multiplying the input to the less-than-or-equal-to logic function by \num{-1}.
+
+\begin{equation}
+\left(a \ge 0\right) = \left(-a \le 0\right)
+\end{equation}
+
+\subsection{Logical and}
+
+A linearized logical $\logicand$ function was implemented by introducing a new binary variable $z$ for the output of the $\logicand$ function.
+The input binary values are $a_1$ and $a_2$.
+More than two input values were not considered in this formulation.
+
+\begin{gather}
+z \ge a_1 + a_2 - 1
+\\
+z \le a_i \quad \forall \ i
+\end{gather}
+
+\subsection{Logical or}
+
+A linearized logical $\logicor$ function was implemented by introducing a new binary variable $z$ for the output of the $\logicor$ function.
+The input binary values are $a_i$.
+
+\begin{gather}
+z \ge a_i \forall i
+\\
+z \le \sum_i a_i
+\end{gather}
