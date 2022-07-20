@@ -195,7 +195,7 @@ P_{pump2,t} = 0 \ \lor \ P_{pump2,min} \le P_{pump2,t} \le P_{pump2,max} \\
 Q_{pump2,t} = Q_{w2}\left( P_{pump2,t} \right)
 \end{gather}
 
-\Cref{eqn:pump-flow-relation} is a placeholder for the currently unknown relationship between pump flow and power. For real-time control, the EMS controller could infer this relationship by observing the operation of the pump. Until then, a simple linear efficiency coefficient $\eta_{pump2}$ is used to characterize the power-flow relationship of Pump 2.
+\Cref{eqn:pump-flow-relation} is a placeholder for the currently unknown relationship between pump flow and power. For real-time control, the EMS controller could infer this relationship by observing the operation of the pump. Until then, a simple linear efficiency coefficient $\eta_{pump2}$ is used to characterize the power-flow relationship of Pump 2 as shown in \cref{eqn:pump-flow-relation}, where $h$ is the head in \si{m}, $\rho$ is the density of the water being pumped in \si{kg/m^3}, and $g$ is the acceleration of gravity in \si{m/s^2}.
 %
 \begin{equation}
 \label{eqn:pump-flow-relation}
