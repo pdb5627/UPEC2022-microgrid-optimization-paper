@@ -244,12 +244,13 @@ P_{BSS,ch,t} = \min\Big(
 0 \le P_{BSS,disch,t} \le \left(1 - s_{BSS,t}\right) P_{BSS,disch,max}
 \end{gather}
 
-The constant $K_{BSS}$ takes a value between 0 and 1 and determines this switchover point from bulk charging mode to absorption charging and the rate of decrease in the charging power in absorption charging mode. A $K_{BSS}$ value of 1 indicates that the charger remains in bulk charging mode until the BSS is fully charged. The value of $K_{BSS}$ can be related to the time constant of the exponential decay of charging power in absorption mode, $\tau_{BSS}$, as shown in \cref{eqn:calculate-K-BSS}. This relationship can be used to calculate $K_{BSS}$ or to convert a known $K_{BSS}$ from one modeling time interval $\Delta t$ to another.
+The constant $K_{BSS}$ takes a value between 0 and 1 and determines this switchover point from bulk charging mode to absorption charging and the rate of decrease in the charging power in absorption charging mode. A $K_{BSS}$ value of 1 indicates that the charger remains in bulk charging mode until the BSS is fully charged.
+%The value of $K_{BSS}$ can be related to the time constant of the exponential decay of charging power in absorption mode, $\tau_{BSS}$, as shown in \cref{eqn:calculate-K-BSS}. This relationship can be used to calculate $K_{BSS}$ or to convert a known $K_{BSS}$ from one modeling time interval $\Delta t$ to another.
 %
-\begin{equation}
-\label{eqn:calculate-K-BSS}
-K_{BSS} = 1 - e^{\sfrac{-\Delta t}{\tau_{BSS}}}
-\end{equation}
+%\begin{equation}
+%\label{eqn:calculate-K-BSS}
+%K_{BSS} = 1 - e^{\sfrac{-\Delta t}{\tau_{BSS}}}
+%\end{equation}
 
 According to the the hybrid inverter user manual\cite{Growatt_manual}, when in ``SBU priority'' mode, the hybrid inverter switches from PV/battery source to utility source when the battery goes below a minimum voltage level and switches back to the battery when the battery rises above a minimum voltage level. \Cref{eqn:inverter-mode} represents this logic to determine the connection of the inverter in time period $t$ based on the connection during the previous period and the BSS energy level at the end of the previous period. 
 Modeled this way, the mode is switched only at discrete time intervals, so the model will show the battery BSS charge level will going a little above and below the set thresholds rather than switching mid-period as the actual hybrid inverter will do.

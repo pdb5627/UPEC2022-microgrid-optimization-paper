@@ -5,13 +5,17 @@ Data for the problem parameters was estimated based on the planned demonstration
 While the parameters used are intended to represent a realistic system, they have not been validated operationally.
 %Nonetheless, they should suffice to illustrate the proposed mathematical model.
 %Rather than providing data values for all the problem parameters shown in \cref{table:parameters}, due to space limitations, a more general description of the parameters selection is given.
+Full details of all parameters used may be found in the source code archive for this paper, released on GitHub and CodeOcean.
 
 Grid energy costs $C_{grid,t}$ were set for the daytime, peak, and nighttime rates and daily periods that Güneşköy was billed at in 2020, not including fees for power factor, etc., converted to US Dollars at approximately the Turkish Lira-US Dollar exchange rate that was effective at the time.
+% C_BSS=0.01, C_BSS_switching=1., C_pump_switching=1., Cw_short=100.,
+Cost parameters for $C_{BSS}$, $C_{w,short}$, $C_{BSS, switching}$, $C_{Pump1,switching}$  were arbitrarily set to \num{0.01}, \num{100}, \num{1}, and \num{1} respectively.
 
 Water usage efficiency $\eta_{w,t}$ was set using different values for each hour of the day, with the highest efficiency (\num{1.0}) during nighttime hours and the lowest efficiency (\num{0.5}) during early afternoon.
 
 Random values were generated for the load and the desired water use. Load was drawn from a uniform distribution ranging from 0 to \SI{1}{kW}.
-Daily desired water use was drawn from a normal distribution with a mean of \SI{70}{m^3} and a standard deviation of \SI{30}{m^3}.
+Daily desired water use was drawn from a normal distribution with a mean of \SI{140}{m^3} and a standard deviation of \SI{60}{m^3}.
+The generator for the pseudo-random number series was initialized using a seed value to ensure reproducibility.
 
 Pump, battery, and PV parameters were selected to represent the demonstration system shown in \cref{fig:demo-system}.
 The hybrid inverter source selection was configured to stay on the PV/BSS source until the BSS charge dropped below 30\% and then switch to the grid to charge until it reached a charge level of 95\%.
@@ -19,6 +23,5 @@ The BSS charging and discharging efficiency was set to 95\%.
 Hourly averages of the recorded output power of the rooftop PV array on the METU EEE Department machinery building were scaled to the rating of the demonstration system and used for the available PV power.
 
 The optimization period was set for a length of \SI{72}{h} with a time step $\Delta t$ of \SI{1}{h} used. The time period of \SI{72}{h} (3 days) was used so that the optimizer wouldn't use up all the stored water and energy to meet the needs of the first day, neglecting its benefit for future days.
-Initial values for $E_{BSS}$, $V_{w1}$, $V_{w2}$, and $s_{inv}$ were set arbitrarily for the first period optimized.
-For subsequent periods, the time period being optimized was slid forward by \SI{24}{h}, and the value for the 24th hour of the previous period was used as the initial value for the current period.
-The results shown in \cref{sec:results} are from the fourth in this series of sliding optimization runs.
+Initial values for $E_{BSS}$, $V_{w1}$, $V_{w2}$, and $s_{inv}$ were set randomly.
+The results shown in \cref{sec:results} are from the simulation starting on 24 February 2021.

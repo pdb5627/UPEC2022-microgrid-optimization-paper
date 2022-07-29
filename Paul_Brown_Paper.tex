@@ -31,7 +31,7 @@
 
 \usepackage{graphicx}
 
-\usepackage[inkscapelatex=false]{svg}
+%\usepackage[inkscapelatex=false]{svg}
 
 %Set English as language and allow to write hyphenated"=words
 % For Turkish, on Ubuntu aptitude install texlive-lang-european
@@ -115,30 +115,20 @@
 % Alternative: \usepackage{cite}, which enables \cite{ref1, ref2} only (otherwise: Error message: "White space in argument")
 %
 % Doc: http://texdoc.net/natbib
-\ifCLASSOPTIONcompsoc
-  % IEEE Computer Society needs nocompress option at cite.sty
-  % natbib includes the same functionality
-  \usepackage[%
-    square,        % for square brackets
-    comma,         % use commas as separators
-    numbers,       % for numerical citations;
-    sort           % orders multiple citations into the sequence in which they appear in the list of references;
-    %sort&compress % as sort but in addition multiple numerical citations
-                   % are compressed if possible (as 3-6, 15);
-  ]{natbib}
-\else
-  % normal IEEE
-  \usepackage[%
-    square,        % for square brackets
-    comma,         % use commas as separators
-    numbers,       % for numerical citations;
-    %sort           % orders multiple citations into the sequence in which they appear in the list of references;
-    sort&compress % as sort but in addition multiple numerical citations
-                   % are compressed if possible (as 3-6, 15);
-  ]{natbib}
-\fi
+
+% normal IEEE
+%\usepackage[%
+%	square,        % for square brackets
+%	comma,         % use commas as separators
+%	numbers,       % for numerical citations;
+%	%sort           % orders multiple citations into the sequence in which they appear in the list of references;
+%	sort&compress % as sort but in addition multiple numerical citations
+%	               % are compressed if possible (as 3-6, 15);
+%]{natbib}
 % Same fontsize as without natbib
-\renewcommand{\bibfont}{\normalfont\footnotesize}
+%\renewcommand{\bibfont}{\normalfont\footnotesize}
+% Using cite package instead
+\usepackage{cite}
 
 % Enable hyperlinked author names in the case of \citet
 % Source: https://tex.stackexchange.com/a/76075/9075
@@ -227,12 +217,13 @@
 
 
 %\bibliographystyle{chicago}   % For drafts only, to make it easier to see which references have been used.
-\bibliographystyle{IEEEtranN} % IEEEtranN is the natbib compatible bst file
+\bibliographystyle{IEEEtran} % IEEEtranN is the natbib compatible bst file
 %\usepackage{showkeys}          % For drafts only
 
 
 \begin{document}
 %\IEEEoverridecommandlockouts
+\bstctlcite{IEEEexample:BSTcontrol}
 
 \input{title}
 
@@ -305,7 +296,7 @@
 
 \input{99_conclusion}
 
-\input{A_linearization}
+%\input{A_linearization}
 
 %\clearpage
 
@@ -335,7 +326,9 @@
 % \def\IEEEbibitemsep{0pt plus .5pt}
 
 % argument is your BibTeX string definitions and bibliography database(s)
-\bibliography{biblio}
+\bibliography{IEEEabrv,biblio}
+% Manually include bibliography for the final version
+%\input{build/Paul_Brown_Paper.bbl}
 
 %\ \\ % empty line after bibliogpraphy and that statement
 
