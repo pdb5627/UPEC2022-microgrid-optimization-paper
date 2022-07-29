@@ -283,8 +283,21 @@ TSWLatexianTemp*
 # Uncomment the next line to have this generated file ignored.
 #*Notes.bib
 
+# Python files to ignore:
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# PyCharm
+.idea
+
 # Intermediate build files used for including svg figures
 svg-inkscape/**
 
 # Instructions on how to use the IEEE Latex template
-IEEETransactions_LaTeX/**
+paper/IEEETransactions_LaTeX/**
+paper/CopyrightReceipt.pdf
+
+# Results not to be tracked, by default
+results/**

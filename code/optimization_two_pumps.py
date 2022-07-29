@@ -2,7 +2,7 @@
 Operational optimization problem formulation
 Built using Pyomo for modeling
 """
-
+import logging
 from pyomo.environ import Var, Expression, Constraint, quicksum
 from pyomo.core.expr.current import evaluate_expression
 from pyomo.util.infeasible import log_infeasible_constraints, log_infeasible_bounds
@@ -11,7 +11,7 @@ from typing import Callable, Optional, Sequence, Union
 from types import SimpleNamespace
 from dataclasses import dataclass
 
-from ems.pyomo_utils import *
+from pyomo_utils import *
 
 import numpy as np
 import numpy.ma as ma

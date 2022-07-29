@@ -9,7 +9,7 @@ def postpend(filename, string):
 
 
 program_runtime = datetime.now()
-results_dir = Path('output') / 'operational_optimization' / f'{program_runtime:%Y%m%d_%H%M}'
+results_dir = Path('..') / 'results' / f'{program_runtime:%Y%m%d_%H%M}'
 results_dir.mkdir()
 
 logfile = results_dir / 'optimization_demo.log'
@@ -48,7 +48,7 @@ logging_config = {
     'loggers': {
         '': {'handlers': ['file', 'console', 'file_debug'],
              'level': 'WARNING'},
-        'ems': {'level': 'DEBUG'},
+        'optimization_two_pumps': {'level': 'DEBUG'},
         'pyomo': {'level': 'INFO'},
         'optimization_demo': {'level': 'DEBUG'},
     },
@@ -72,13 +72,13 @@ import numpy as np
 from matplotlib import pyplot as plt
 from matplotlib.backends.backend_pdf import PdfPages
 import matplotlib
-from ems.optimization_two_pumps import TwoPumpModel, TwoPumpModelParameters
+from optimization_two_pumps import TwoPumpModel, TwoPumpModelParameters
 import pandas as pd
 #matplotlib.use('TkAgg')
 #plt.ion() # Set matplotlib to interactive so plots don't block
 plt.style.use('seaborn-whitegrid')
 matplotlib.rcParams['font.family'] = 'serif'
-plt.rcParams.update({'font.serif': ['Times New Roman', 'Times'],
+plt.rcParams.update({'font.serif': ['Times New Roman', 'Times', 'Libertine Serif'],
                      'legend.framealpha': 0.8,
                      'legend.frameon': True})
 plt.rc('font', size=6)
@@ -96,7 +96,7 @@ plt.rc('font', size=6)
 # df.to_csv('data/operational_optimization_pv_out.csv', header=True)
 
 # Load PV dataset from csv file
-pv_data = pd.read_csv('data/operational_optimization_pv_out.csv', parse_dates=['dt'], index_col='dt')
+pv_data = pd.read_csv('../data/operational_optimization_pv_out.csv', parse_dates=['dt'], index_col='dt')
 
 
 def time_of_use_rate(h):
