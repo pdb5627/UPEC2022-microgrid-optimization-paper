@@ -215,7 +215,7 @@ It is planned for the BSS to consist of lead-acid batteries. The hybrid inverter
 	\item \textbf{Equalization charging.} Equalization charging is only applicable to flooded lead acid batteries and not to sealed lead acid batteries. In this mode, the battery is temporarily overcharged in order to reduce sulfation on the battery plates.
 \end{enumerate}
 
-For the purposes of a mathematical model of the hybrid inverter's battery charging system for this optimization problem, only the bulk charging and absorption charging modes are represented. The other charging modes are neglected since most of the energy transfer to the BSS is completed these modes.
+For the purposes of a mathematical model of the hybrid inverter's battery charging system for this optimization problem, only the bulk charging and absorption charging modes are represented. The other charging modes are neglected since little energy transfer to the BSS is completed these modes.
 
 \Cref{eqn:sBSS} forces the charger state to charging mode if power is available.
 \Cref{eqn:BSS-mode-charging} enforces the limit for absorption charging mode of the hybrid inverter,
@@ -265,7 +265,7 @@ s_{inv,t} = \left(s_{inv,t-1} \logicand \left(E_{BSS,t-1} \le E_{BSS,upper} \rig
 \end{split}
 \end{equation}
 
-\Cref{eqn:BSS-balance} couples the battery system energy balance from one period to the next. It includes a factor for conversion losses on energy input and energy output. An alternative formulation would be to make the efficiency factor be ``round trip'' and only include it on one of charging or discharging power rather than both.
+\Cref{eqn:BSS-balance} couples the battery system energy balance from one period to the next. It includes a factor for conversion losses on energy input and energy output.% An alternative formulation would be to make the efficiency factor be ``round trip'' and only include it on one of charging or discharging power rather than both.
 %
 \begin{equation}
 \label{eqn:BSS-balance}
@@ -289,7 +289,7 @@ It is assumed that water use between the reservoirs is interchangeable.
 V_{use,d} = \sum_{t \in D_d}  \sum_{r} \eta_{w,t} Q_{use,r,t} \Delta t
 \end{equation}
 
-Equations \ref{eqn:var-limit-1} and \ref{eqn:var-limit-2} are the limits on feasible values of the water flow and reservoir level values.
+Equations (\ref{eqn:var-limit-1}) and (\ref{eqn:var-limit-2}) are the limits on feasible values of the water flow and reservoir level values.
 %
 \begin{gather}
 \label{eqn:var-limit-1}

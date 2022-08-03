@@ -8,6 +8,7 @@ open-source mixed-integer linear program (MILP) solver. In order to use a MILP s
 %Details are provided in \cref{sec:linearization}.
 Semi-continuous variables were modeled using the approach described in \cite{MILP_handout}.
 
-The problem, solved for a time period of \SI{72}{h} with an interval $\Delta t$ of \SI{1}{h}, contained a total of 938 continuous and 1008 binary variables. SCIP converges to a solution in less than 40 seconds.
+The problem, solved for a time period of \SI{72}{h} with an interval $\Delta t$ of \SI{1}{h}, contained a total of 938 continuous and 1008 binary variables.
+SCIP converged to a solution in less than 40 seconds.
 
-Initialization to a feasible point was performed using a single forward-pass heuristic of greedy pumping with Pump 2 if PV was available, then meeting loads with PV and BSS energy, discharging BSS to meet loads if necessarily and energy was available. Initial Pump 1 pumping and water use was set by iteratively solving a linear problem to try to add pumping one hour at a time until the desired water usage was met. The linear problem was implemented in Pyomo and solved using GLPK\cite{GLPK}.
+Initialization to a feasible point was performed using a single forward-pass heuristic of greedy pumping with Pump 2 if PV was available, then meeting loads with PV and BSS energy, discharging BSS to meet loads if necessarily and energy was available. Initial Pump 1 pumping and water use was set by iteratively solving a linear problem to try to add pumping one hour at a time until the desired water usage was met. The linear initialization problem was implemented in Pyomo and solved using GLPK\cite{GLPK}.
