@@ -7,6 +7,6 @@ The results can be reproduced on [Code Ocean](#link) or using a Docker container
 # Citation
 
 If you find this work helpful for any work that you publish, you may cite the paper presented at the conference.
-The relevant BibTex entry is shown below,
+The relevant BibTex entry will shown below once the paper is published,
 or other formats can be copied from the IEEE Xplore page once it goes live.
 
