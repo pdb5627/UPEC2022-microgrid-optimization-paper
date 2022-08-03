@@ -1,0 +1,33 @@
+cff-version: 1.2.0
+title: >-
+  Operational Optimization of an Agricultural
+  Microgrid
+message: >-
+  The publication of the preferred reference for citing this work is pending.
+#   Please cite this software using the metadata from
+#   'preferred-citation'.
+type: software
+authors:
+  - given-names: Paul D.
+    family-names: Brown
+    affiliation: Middle East Technical University
+    orcid: 'https://orcid.org/0000-0001-5753-0449'
+  - given-names: Murat
+    family-names: Göl
+    affiliation: Middle East Technical  University
+    orcid: 'https://orcid.org/0000-0002-2523-1169'
+# preferred-citation:
+#   authors:
+#     - given-names: Paul D.
+#       family-names: Brown
+#       affiliation: Middle East Technical University
+#       orcid: 'https://orcid.org/0000-0001-5753-0449'
+#     - given-names: Murat
+#       family-names: Göl
+#       affiliation: Middle East Technical  University
+#       orcid: 'https://orcid.org/0000-0002-2523-1169'
+#   title: >-
+#     Operational Optimization of an Agricultural
+#     Microgrid
+#   doi: TBD
+#   type: article
