@@ -1,0 +1,27 @@
+2022-08-03 08:34:42,655 INFO     optimization_demo: ============================================================
+2022-08-03 08:34:42,655 INFO     optimization_demo: Beginning operational optimization
+2022-08-03 08:34:42,656 INFO     optimization_demo:    Period begins: 2021-02-24 00:00:00
+2022-08-03 08:34:42,656 INFO     optimization_demo:    Period ends:   2021-02-27 00:00:00
+2022-08-03 08:34:42,816 INFO     optimization_demo: seed=42, E_BSS0_pu=0.65, Vw1_0=68.6, Vw2_0=25.1, sinv0=1
+2022-08-03 08:34:45,388 INFO     optimization_two_pumps: Starting solution costs:
+2022-08-03 08:34:45,388 INFO     optimization_two_pumps:     Grid energy cost: 2448.1
+2022-08-03 08:34:45,388 INFO     optimization_two_pumps:     Battery use cost: 198.6
+2022-08-03 08:34:45,388 INFO     optimization_two_pumps:     Inadequate water cost: 0.0 (0.0% of desired water not supplied)
+2022-08-03 08:34:45,389 INFO     optimization_two_pumps:     Battery mode switching cost: 8.0
+2022-08-03 08:34:45,389 INFO     optimization_two_pumps:     Pump switching cost: 1.0
+2022-08-03 08:34:45,389 INFO     optimization_two_pumps:     TOTAL: 2655.7
+2022-08-03 08:34:45,737 INFO     optimization_two_pumps: Solving with solver_select=scip
+2022-08-03 08:35:44,871 INFO     optimization_two_pumps: Optimal solution costs:
+2022-08-03 08:35:44,872 INFO     optimization_two_pumps:     Grid energy cost: 1192.4
+2022-08-03 08:35:44,872 INFO     optimization_two_pumps:     Battery use cost: 326.1
+2022-08-03 08:35:44,872 INFO     optimization_two_pumps:     Inadequate water cost: 0.0 (0.0% of desired water not supplied)
+2022-08-03 08:35:44,872 INFO     optimization_two_pumps:     Battery mode switching cost: 7.0
+2022-08-03 08:35:44,872 INFO     optimization_two_pumps:     Pump switching cost: 1.0
+2022-08-03 08:35:44,872 INFO     optimization_two_pumps:     TOTAL: 1526.5
+2022-08-03 08:35:44,872 INFO     optimization_two_pumps: Objective value change: 2655.7 -> 1526.5
+2022-08-03 08:35:44,872 INFO     optimization_two_pumps: Ratio of optimal / initial: 0.57
+2022-08-03 08:35:45,673 INFO     optimization_demo: Saving plots to PDF at ../results/20220803_0834/42/optimization_plots.pdf
+2022-08-03 08:35:45,679 WARNING  matplotlib.font_manager: findfont: Font family ['serif'] not found. Falling back to DejaVu Sans.
+2022-08-03 08:35:45,679 WARNING  matplotlib.font_manager: findfont: Generic family 'serif' not found because none of the following families were found: Times New Roman, Times, Libertine Serif
+2022-08-03 08:35:45,684 WARNING  matplotlib.font_manager: findfont: Font family ['serif'] not found. Falling back to DejaVu Sans.
+2022-08-03 08:35:45,684 WARNING  matplotlib.font_manager: findfont: Generic family 'serif' not found because none of the following families were found: Times New Roman, Times, Libertine Serif
