@@ -3,7 +3,10 @@ This repository contains the source code for the paper presented at [UPEC 2022](
 The paper was prepared using LaTeX, and the necessary files  are saved under [paper](paper) with a build of [the PDF 
 output](paper/build/Paul_Brown_Paper.pdf) available.
 The code for the work described in the paper is saved under [code](code).
-The results can be reproduced on [Code Ocean](#link) or using a Docker container on your own hardware as described in [this document](REPRODUCING.md).
+The results can be reproduced on [Code Ocean](https://codeocean.com/capsule/5295207/tree/v1) or using a Docker 
+container on your own hardware as described in [this document](REPRODUCING.md).
+The published image on Code Ocean corresponds to the version that generated the results published in the paper
+and will not reflect any subsequent updates to this repository.
 
 # Citation
 
